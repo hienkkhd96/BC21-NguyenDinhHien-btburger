@@ -5,20 +5,14 @@ import './BurgerStyle.css';
 
 class Burger extends Component {
     burgerContent = () => {
-        let {
-            salad,
-            cheese,
-            beef,
-        } = this.props.burger;
+        const arrBurger = [...Object.keys(this.props.burger)];
+        const arrBurgerValue = [...Object.values(this.props.burger)];
+
         let burger = [];
-        for (let i = 0; i < salad; i++){
-            burger.push(<div key={burger.length} className="saladSide"></div>);
-        }
-        for (let i = 0; i < cheese; i++){
-            burger.push(<div key={burger.length} className="cheeseSide"></div>);
-        }
-        for (let i = 0; i < beef; i++){
-            burger.push(<div key={burger.length} className="beefSide"></div>);
+        for (let i=0;i<arrBurger.length;i++) {
+            for (let j = 0; j < arrBurgerValue[i]; j++){
+                burger.push(<div key={burger.length} className={`${arrBurger[i]}Side`}></div>);
+            }
         }
         if(burger.length === 0)
             burger.push(<p key="0">Please start adding ingredients!</p>);
