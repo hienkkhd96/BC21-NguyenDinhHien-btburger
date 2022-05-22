@@ -15,7 +15,7 @@ class Burger extends Component {
             }
         }
         if(burger.length === 0)
-            burger.push(<p key="0">Please start adding ingredients!</p>);
+            burger.push(<p key="0">Vui lòng chọn nhân bánh!</p>);
         return burger
     }
 
