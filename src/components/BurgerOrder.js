@@ -28,7 +28,7 @@ class BurgerOrder extends PureComponent {
                   </td>
                   <td className="">
                     <button className="btn btn-primary mx-1" onClick={()=>this.props.handleBurgerCount(item,1)}>+</button>
-                    <input type="number" className="col-2" value={this.props.burger[item]} min={0} onChange={(e)=>this.props.handleBurgerChange(item,e.target.value)}/>
+                    <input type="number" className="col-2" value={this.props.burger[item]} min={0} onChange={(e)=>this.props.handleBurgerChange(item,Number(e.target.value))}/>
                     <button className="btn btn-primary mx-1" onClick={()=>this.props.handleBurgerCount(item,-1)}>-</button>
                   </td>
                   <td className="">
