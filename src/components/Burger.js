@@ -1,80 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import BurgerOrder from './BurgerOrder';
 import './BurgerStyle.css';
 
-export default class Burger extends Component {
-    state = {
-        lettuce: 0,
-        tomato: 0,
-        cheese: 0,
-        meat: 0
-    }
-
-    addRemoveIngredient = (action, ingredient) => {
-        let {
-            lettuce,
-            tomato,
-            cheese,
-            meat
-        } = this.state;
-
-        let stateValue;
-        switch(ingredient){
-            case 'lettuce':{
-                stateValue = lettuce;
-                break;
-            }
-            case 'tomato':{
-                stateValue = tomato;
-                break;
-            }
-            case 'cheese':{
-                stateValue = cheese;
-                break;
-            }
-            case 'meat':{
-                stateValue = meat;
-                break;
-            }
-            default: break;
-        }
-        if(action === 'add'){
-            stateValue = stateValue + 1;
-        }else{
-            stateValue = stateValue - 1;
-        }
-        this.setState({
-            [ingredient]: stateValue >= 0 ? stateValue : 0
-        });
-    }
-
+class Burger extends Component {
     burgerContent = () => {
         let {
-            lettuce,
-            tomato,
+            salad,
             cheese,
-            meat
-        } = this.state;
+            beef,
+        } = this.props.burger;
         let burger = [];
-
-        // outputting the lettuce
-        for (let i = 0; i < lettuce; i++){
-            burger.push(<div key={burger.length} className="lettuseSide"></div>);
+        for (let i = 0; i < salad; i++){
+            burger.push(<div key={burger.length} className="saladSide"></div>);
         }
-        // outputting the tomato
-        for (let i = 0; i < tomato; i++){
-            burger.push(<div key={burger.length} className="tomatoSide"></div>);
-        }
-        // outputting the cheese
         for (let i = 0; i < cheese; i++){
             burger.push(<div key={burger.length} className="cheeseSide"></div>);
         }
-        // outputting the meat
-        for (let i = 0; i < meat; i++){
-            burger.push(<div key={burger.length} className="meatSide"></div>);
+        for (let i = 0; i < beef; i++){
+            burger.push(<div key={burger.length} className="beefSide"></div>);
         }
         if(burger.length === 0)
             burger.push(<p key="0">Please start adding ingredients!</p>);
-        return burger;
+        return burger
     }
 
     render(){
@@ -85,29 +33,12 @@ export default class Burger extends Component {
                     {this.burgerContent()}
                     <div className="bottomSide"></div>
                 </div>
-                <div className="ingredientsBlock">
-                    <p>Lettuce</p>
-                    <div className="ingrBtns">
-                        <button className="ingrBtn" onClick={() => this.addRemoveIngredient('add','lettuce')}>Add</button>
-                        <button className="ingrBtn" onClick={() => this.addRemoveIngredient('remove','lettuce')}>Remove</button>
-                    </div>
-                    <p>TOMATO</p>
-                    <div className="ingrBtns">
-                        <button className="ingrBtn" onClick={() => this.addRemoveIngredient('add','tomato')}>Add</button>
-                        <button className="ingrBtn" onClick={() => this.addRemoveIngredient('remove','tomato')}>Remove</button>
-                    </div>
-                    <p>CHEESE</p>
-                    <div className="ingrBtns">
-                        <button className="ingrBtn" onClick={() => this.addRemoveIngredient('add','cheese')}>Add</button>
-                        <button className="ingrBtn" onClick={() => this.addRemoveIngredient('remove','cheese')}>Remove</button>
-                    </div>
-                    <p>MEAT</p>
-                    <div className="ingrBtns">
-                        <button className="ingrBtn" onClick={() => this.addRemoveIngredient('add','meat')}>Add</button>
-                        <button className="ingrBtn" onClick={() => this.addRemoveIngredient('remove','meat')}>Remove</button>
-                    </div>
-                </div>
+                <BurgerOrder/>
             </>
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {burger:state.BurgerReducer.burger}
+}
+export default connect(mapStateToProps)(Burger)
